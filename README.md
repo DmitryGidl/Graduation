@@ -41,7 +41,7 @@ curl -X GET "http://localhost:8080/admin/vote/history/user/3" --user admin@gmail
 #### Update Any Vote
 curl -X PUT "http://localhost:8080/admin/vote/2" --user admin@gmail.com:password -H "Content-Type: application/json" -d "{ \\"restaurantId\\": 3}"
 #### Delete Any Vote
-curl -X DELETE "http://localhost:8080/admin/vote/3" --user admin@gmail.com:password
+curl -X DELETE "http://localhost:8080/admin/vote/2" --user admin@gmail.com:password
 
 ### Shared endpoints
 #### Register new user
