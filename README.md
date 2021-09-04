@@ -30,7 +30,7 @@ curl -X POST "http://localhost:8080/admin/dish" --user admin@gmail.com:password 
 curl -X PUT "http://localhost:8080/admin/dish/3" --user admin@gmail.com:password -H "Content-Type: application/json" -d "{ \\"dateAdded\\": \\"2021-09-04\\", \\"name\\": \\"2 pc. Breast and Wing Combo\\", \\"price\\": 23, \\"restaurantId\\": 1}"
 #### Delete Dish
 curl -X DELETE "http://localhost:8080/admin/dish/6" --user admin@gmail.com:password
-#### Get ALL Votes
+#### Get ALL Votes today
 curl -X GET "http://localhost:8080/admin/vote" --user admin@gmail.com:password
 #### Get any Vote by Id
 curl -X GET "http://localhost:8080/admin/vote/2" --user admin@gmail.com:password"
@@ -61,15 +61,15 @@ curl -X GET "http://localhost:8080/restaurant" --user user@gmail.com:password
 #### Get one restaurant
 curl -X GET "http://localhost:8080/restaurant/3" --user user@gmail.com:password"
 
-#### Get vote of current logged user
+#### Get vote of currently logged user
 curl -X GET "http://localhost:8080/vote" --user user@gmail.com:password
 #### Create a new Vote ( or Update if user has already voted today )
 curl -X POST "http://localhost:8080/vote" --user user@gmail.com:password -H "Content-Type: application/json" -d "{ \\"restaurantId\\": 1}"
-#### Update vote of current logged user
+#### Update vote of currently logged user
 curl -X PUT "http://localhost:8080/vote" --user user@gmail.com:password -H "Content-Type: application/json" -d "{ \\"restaurantId\\": 3}"
-#### Delete vote of current logged user
+#### Delete vote of currently logged user
 curl -X DELETE "http://localhost:8080/vote" --user user@gmail.com:password
-#### Get a vote history of current logged user
+#### Get a vote history of currently logged user
 curl -X GET "http://localhost:8080/vote/history" --user user@gmail.com:password
 #### Get a vote from history
 curl -X GET "http://localhost:8080/vote/history/1" --user user@gmail.com:password
