@@ -67,9 +67,9 @@ curl -X GET "http://localhost:8080/vote" --user user@gmail.com:password
 curl -X POST "http://localhost:8080/vote" --user user@gmail.com:password -H "Content-Type: application/json" -d "{ \\"restaurantId\\": 1}"
 #### Update vote of currently logged user
 curl -X PUT "http://localhost:8080/vote" --user user@gmail.com:password -H "Content-Type: application/json" -d "{ \\"restaurantId\\": 3}"
-#### Delete vote of currently logged user
-curl -X DELETE "http://localhost:8080/vote" --user user@gmail.com:password
 #### Get a vote history of currently logged user
 curl -X GET "http://localhost:8080/vote/history" --user user@gmail.com:password
+#### Delete vote of currently logged user
+curl -X DELETE "http://localhost:8080/vote" --user user@gmail.com:password
 #### Get a vote from history
 curl -X GET "http://localhost:8080/vote/history/1" --user user@gmail.com:password
