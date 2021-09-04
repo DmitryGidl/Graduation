@@ -53,7 +53,7 @@ class AdminDishControllerTest {
                         .content(this.objectMapper.writeValueAsString(dishDeepFried));
 
         mockMvc.perform(mockRequest)
-                .andExpect(jsonPath("$.name", is("Ассорти Deep Fried")));
+                .andExpect(jsonPath("$.name", is("Assorted Deep fried")));
     }
 
     @Test
@@ -69,7 +69,7 @@ class AdminDishControllerTest {
 
         mockMvc.perform(mockRequest)
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.name", is("Пицца маргарита")));
+                .andExpect(jsonPath("$.name", is("Pizza Margherita")));
     }
 
     @Test

@@ -49,7 +49,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         mockMvc.perform(mockRequest)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(3)))
-                .andExpect(jsonPath("$[1].restaurantAddress", is("проспект Победы, 9Б")));
+                .andExpect(jsonPath("$[1].restaurantAddress", is("87 Stanley Road")));
     }
 
     @Test
@@ -66,16 +66,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
     @Test
     void UpdateAnyVote() throws Exception {
-        var voteCreationMamamia = getVoteCreationMamamia();
-        Mockito.when(voteService.update(5, voteCreationMamamia)).thenReturn(getVoteResponseMamamia());
+        var voteCreationBangalore = getVoteCreationBangalore();
+        Mockito.when(voteService.update(5, voteCreationBangalore)).thenReturn(getVoteResponseBangalore());
 
         var mockRequest = put("/admin/vote/5")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(voteCreationMamamia));
+                .content(objectMapper.writeValueAsString(voteCreationBangalore));
 
         mockMvc.perform(mockRequest)
                 .andExpect(jsonPath("$", notNullValue()))
-                .andExpect(jsonPath("$.restaurantName", is("Mamamia")));
+                .andExpect(jsonPath("$.restaurantName", is("Bangalore Spices")));
     }
 
     @Test
@@ -95,7 +95,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         mockMvc.perform(mockRequest)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(3)))
-                .andExpect(jsonPath("$[1].restaurantAddress", is("проспект Победы, 9Б")));
+                .andExpect(jsonPath("$[1].restaurantAddress", is("87 Stanley Road")));
 
     }
 
@@ -109,7 +109,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         mockMvc.perform(mockRequest)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(3)))
-                .andExpect(jsonPath("$[0].restaurantAddress", is("Басейна, 17")));
+                .andExpect(jsonPath("$[0].restaurantAddress", is("30 Queen Street")));
     }
 }
 

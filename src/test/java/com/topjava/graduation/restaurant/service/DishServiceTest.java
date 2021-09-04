@@ -21,7 +21,7 @@ import java.util.Optional;
 
 import static com.topjava.graduation.restaurant.test_data.DishTestModel.*;
 import static com.topjava.graduation.restaurant.test_data.RestaurantTestModel.getRestaurantDominos;
-import static com.topjava.graduation.restaurant.test_data.RestaurantTestModel.getRestaurantMamamia;
+import static com.topjava.graduation.restaurant.test_data.RestaurantTestModel.getRestaurantBangalore;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 
@@ -73,17 +73,17 @@ class DishServiceTest {
     @Test
     void update_dishExist_sucess() {
         var dishVegiBox = getDishVegibox();
-        var restaurantMamamia = getRestaurantMamamia();
+        var restaurantBangalore = getRestaurantBangalore();
         Mockito.when(dishRepository.findById(12)).thenReturn(Optional.of(dishVegiBox));
-        Mockito.when(restaurantRepository.findById(2)).thenReturn(Optional.of(restaurantMamamia));
+        Mockito.when(restaurantRepository.findById(2)).thenReturn(Optional.of(restaurantBangalore));
         Mockito.when(dishRepository.save(dishCaptor.capture())).thenReturn(dishVegiBox);
 
 
         var actualResponseDish = dishService.update(12, getDishCreationDeepfried());
 
-        var expectedSavedDish = new Dish(4, "Ассорти Deep Fried", 289, todayDate, restaurantMamamia);
-        var expectedResponseDish = new DishResponseDTO(4, "Ассорти Deep Fried", 289,
-                "Mamamia", "проспект Победы, 9Б", todayDate, 2);
+        var expectedSavedDish = new Dish(4, "Assorted Deep fried", 289, todayDate, restaurantBangalore);
+        var expectedResponseDish = new DishResponseDTO(4, "Assorted Deep fried", 289,
+                "Bangalore Spices", "87 Stanley Road", todayDate, 2);
         assertEquals(expectedResponseDish, actualResponseDish);
         assertTrue(EqualsBuilder.reflectionEquals(expectedSavedDish, dishCaptor.getValue()));
     }
@@ -118,9 +118,9 @@ class DishServiceTest {
 
         var expectedResponse = getDishResponsePepperoni();
         assertTrue(EqualsBuilder.reflectionEquals(expectedResponse, actualResponse));
-        var expectedDishSaved = new Dish(0, "Пицца пеперони", 150,
+        var expectedDishSaved = new Dish(0, "Pizza Pepperoni", 150,
                 todayDate, new Restaurant(1, "Dominos Pizza",
-                "Басейна, 17", null, null));
+                "30 Queen Street", null, null));
         assertTrue(EqualsBuilder.reflectionEquals(expectedDishSaved, dishCaptor.getValue()));
     }
 

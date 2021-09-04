@@ -70,7 +70,7 @@ public class UserVoteControllerTest {
         mockMvc.perform(mockRequest)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(3)))
-                .andExpect(jsonPath("$[2].restaurantAddress", is("Глибочицкая, 33/37")));
+                .andExpect(jsonPath("$[2].restaurantAddress", is("72 Mill Lane")));
     }
 
     @Test

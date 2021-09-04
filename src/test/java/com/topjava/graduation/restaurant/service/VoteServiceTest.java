@@ -1,14 +1,11 @@
 package com.topjava.graduation.restaurant.service;
 
-import com.topjava.graduation.restaurant.dto.VoteCreationDTO;
 import com.topjava.graduation.restaurant.dto.VoteResponseDTO;
 import com.topjava.graduation.restaurant.entity.Vote;
 import com.topjava.graduation.restaurant.exception.EntityNotFoundException;
 import com.topjava.graduation.restaurant.exception.LateToVoteException;
 import com.topjava.graduation.restaurant.repository.RestaurantRepository;
 import com.topjava.graduation.restaurant.repository.VoteRepository;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.tomcat.jni.Local;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
@@ -18,7 +15,7 @@ import java.time.*;
 import java.util.Optional;
 
 import static com.topjava.graduation.restaurant.test_data.RestaurantTestModel.getRestaurantDominos;
-import static com.topjava.graduation.restaurant.test_data.RestaurantTestModel.getRestaurantMamamia;
+import static com.topjava.graduation.restaurant.test_data.RestaurantTestModel.getRestaurantBangalore;
 import static com.topjava.graduation.restaurant.test_data.TestBaseData.todayDate;
 import static com.topjava.graduation.restaurant.test_data.UserTestModels.getBasicUser;
 import static com.topjava.graduation.restaurant.test_data.VoteTestModel.*;
@@ -51,7 +48,7 @@ class VoteServiceTest {
     @Test
     void addVote_timeValidAndVotePresent_updateVote() {
         Mockito.when(restaurantRepository.findById(1)).thenReturn(Optional.of(getRestaurantDominos()));
-        var oldVote = getVoteMamamia();
+        var oldVote = getVoteBangalore();
         var voteServiceSpy = Mockito.spy(voteService);
         var voteCreationDominos = getVoteCreationDominos();
         Mockito.when(voteRepository.findByUserIdAndVoteDate(122, LocalDate.now(clock))).thenReturn(Optional.of(oldVote));
@@ -76,7 +73,7 @@ Mockito.when(voteRepository.save(voteCaptor.capture())).thenReturn(voteTosave);
 var actualVoteResponse = voteService.addVote(user,creationDominos);
 
 var expectedVoteResponse = new VoteResponseDTO(0, "User", "Dominos Pizza",
-        "Басейна, 17", 1, todayDate);
+        "30 Queen Street", 1, todayDate);
 assertEquals(expectedVoteResponse, actualVoteResponse);
 assertTrue(reflectionEquals(voteTosave, voteCaptor.getValue()));
 
@@ -95,29 +92,29 @@ assertTrue(reflectionEquals(voteTosave, voteCaptor.getValue()));
     @Test
     void updateCurrentUserVote_votePresent_success() {
         var user = getBasicUser();
-        var voteCreationMamamia = getVoteCreationMamamia();
-        var updatedVoteMamamia = getVoteMamamia();
+        var voteCreationBangalore = getVoteCreationBangalore();
+        var updatedVoteBangalore = getVoteBangalore();
         var oldVoteAdriano = getVoteAdriano();
         var voteServiceSpy = Mockito.spy(voteService);
         Mockito.when(voteRepository.findByUserIdAndVoteDate(122, LocalDate.now(clock)))
                 .thenReturn(Optional.of(oldVoteAdriano));
-        Mockito.doReturn(updatedVoteMamamia).when(voteServiceSpy).updateLogic(oldVoteAdriano, voteCreationMamamia);
+        Mockito.doReturn(updatedVoteBangalore).when(voteServiceSpy).updateLogic(oldVoteAdriano, voteCreationBangalore);
 
 
-        var actualResponseVote = voteServiceSpy.updateCurrentUserVote(user, voteCreationMamamia);
+        var actualResponseVote = voteServiceSpy.updateCurrentUserVote(user, voteCreationBangalore);
 
-        var expectedResponseVote = new VoteResponseDTO(2, "User", "Mamamia",
-                "проспект Победы, 9Б", 2, todayDate);
+        var expectedResponseVote = new VoteResponseDTO(2, "User", "Bangalore Spices",
+                "87 Stanley Road", 2, todayDate);
         assertEquals(expectedResponseVote, actualResponseVote);
     }
 
     @Test
     void updateCurrentUserVote_voteAbsent_throwException() {
-        var voteCreationMamamia = getVoteCreationMamamia();
+        var voteCreationBangalore = getVoteCreationBangalore();
         var user = getBasicUser();
         Mockito.when(voteRepository.findByUserIdAndVoteDate(122, LocalDate.now(clock))).thenReturn(Optional.empty());
 
-       assertThrows(EntityNotFoundException.class, () -> voteService.updateCurrentUserVote(user, voteCreationMamamia));
+       assertThrows(EntityNotFoundException.class, () -> voteService.updateCurrentUserVote(user, voteCreationBangalore));
     }
 
     @Test
@@ -132,25 +129,25 @@ assertTrue(reflectionEquals(voteTosave, voteCaptor.getValue()));
 
     @Test
     void updateLogic_restaurantPresent_success() {
-        Mockito.when(restaurantRepository.findById(2)).thenReturn(Optional.of(getRestaurantMamamia()));
-        var voteToSave = new Vote(3, getRestaurantMamamia(), todayDate, getBasicUser());
+        Mockito.when(restaurantRepository.findById(2)).thenReturn(Optional.of(getRestaurantBangalore()));
+        var voteToSave = new Vote(3, getRestaurantBangalore(), todayDate, getBasicUser());
         Mockito.when(voteRepository.save(voteCaptor.capture())).thenReturn(voteToSave);
 
-        var actualResponse = voteService.updateLogic(getVoteAdriano(), getVoteCreationMamamia());
+        var actualResponse = voteService.updateLogic(getVoteAdriano(), getVoteCreationBangalore());
 
         assertTrue(reflectionEquals(voteToSave, voteCaptor.getValue()));
-        var expectedResponse = new Vote(3, getRestaurantMamamia(), todayDate, getBasicUser());
+        var expectedResponse = new Vote(3, getRestaurantBangalore(), todayDate, getBasicUser());
         assertEquals(expectedResponse, actualResponse);
     }
 
     @Test
     void updateLogic_restaurantAbsent_throwException() {
         var oldVoteAdriano = getVoteAdriano();
-        var newVoteCreationMamamia = getVoteCreationMamamia();
+        var newVoteCreationBangalore = getVoteCreationBangalore();
         Mockito.when(restaurantRepository.findById(2)).thenReturn(Optional.empty());
 
         assertThrows(EntityNotFoundException.class, () -> voteService.
-                updateLogic(oldVoteAdriano, newVoteCreationMamamia));
+                updateLogic(oldVoteAdriano, newVoteCreationBangalore));
 
     }
 
@@ -180,9 +177,9 @@ assertTrue(reflectionEquals(voteTosave, voteCaptor.getValue()));
 
     @Test
     void getById_votePresent_returnVote() {
-        Mockito.when(voteRepository.findById(15)).thenReturn(Optional.of(getVoteMamamia()));
+        Mockito.when(voteRepository.findById(15)).thenReturn(Optional.of(getVoteBangalore()));
         var actualResponseVote = voteService.getByid(15);
-        var expectedResponseVote = getVoteResponseMamamia();
+        var expectedResponseVote = getVoteResponseBangalore();
         assertEquals(expectedResponseVote, actualResponseVote);
     }
 
@@ -218,7 +215,7 @@ assertTrue(reflectionEquals(voteTosave, voteCaptor.getValue()));
         var resultVoteResponse = voteService.update(3, getVoteCreationDominos());
 
         var expectedVoteResponse = new VoteResponseDTO(3, "User",
-                "Dominos Pizza", "Басейна, 17", 1, todayDate);
+                "Dominos Pizza", "30 Queen Street", 1, todayDate);
         assertEquals(expectedVoteResponse, resultVoteResponse);
         var expectedVoteSave = new Vote(3, getRestaurantDominos(), todayDate, getBasicUser());
         Mockito.verify(voteRepository, times(1)).save(voteCaptor.capture());
@@ -261,8 +258,8 @@ assertTrue(reflectionEquals(voteTosave, voteCaptor.getValue()));
 
     @Test
     void getOneVoteCurrentUser_votePresent_returnVote() {
-        Mockito.when(voteRepository.findByUserIdAndId(25, 122)).thenReturn(Optional.of(getVoteMamamia()));
-        assertEquals(getVoteResponseMamamia(), voteService.getOneVoteCurrentUser(25, 122));
+        Mockito.when(voteRepository.findByUserIdAndId(25, 122)).thenReturn(Optional.of(getVoteBangalore()));
+        assertEquals(getVoteResponseBangalore(), voteService.getOneVoteCurrentUser(25, 122));
     }
 
     @Test

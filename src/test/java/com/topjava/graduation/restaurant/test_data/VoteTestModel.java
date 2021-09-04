@@ -21,7 +21,7 @@ public abstract class VoteTestModel extends TestBaseData {
         return new VoteCreationDTO(1);
     }
 
-    public static VoteCreationDTO getVoteCreationMamamia() {
+    public static VoteCreationDTO getVoteCreationBangalore() {
         return new VoteCreationDTO(2);
     }
 
@@ -32,22 +32,22 @@ public abstract class VoteTestModel extends TestBaseData {
     // VoteResponseDTOs
     public static VoteResponseDTO getVoteResponseDominos() {
         return new VoteResponseDTO(1, "User", "Dominos Pizza",
-                "Басейна, 17", 1, todayDate);
+                "30 Queen Street", 1, todayDate);
     }
 
-    public static VoteResponseDTO getVoteResponseMamamia() {
-        return new VoteResponseDTO(2, "User", "Mamamia",
-                "проспект Победы, 9Б", 2, todayDate);
+    public static VoteResponseDTO getVoteResponseBangalore() {
+        return new VoteResponseDTO(2, "User", "Bangalore Spices",
+                "87 Stanley Road", 2, todayDate);
     }
 
     public static VoteResponseDTO getVoteResponseAdriano() {
         return new VoteResponseDTO(3, "User", "Adriano's pizza",
-                "Глибочицкая, 33/37", 3, todayDate);
+                "72 Mill Lane", 3, todayDate);
     }
 
     public static List<VoteResponseDTO> getResponseVotes() {
         return new ArrayList<>(Arrays.asList(getVoteResponseDominos(),
-                getVoteResponseMamamia(), getVoteResponseAdriano()));
+                getVoteResponseBangalore(), getVoteResponseAdriano()));
     }
 
     // Votes
@@ -55,8 +55,8 @@ public abstract class VoteTestModel extends TestBaseData {
         return new Vote(1, getRestaurantDominos(), todayDate, getBasicUser());
     }
 
-    public static Vote getVoteMamamia() {
-        return new Vote(2, getRestaurantMamamia(), todayDate, getBasicUser());
+    public static Vote getVoteBangalore() {
+        return new Vote(2, getRestaurantBangalore(), todayDate, getBasicUser());
     }
 
     public static Vote getVoteAdriano() {
@@ -64,7 +64,7 @@ public abstract class VoteTestModel extends TestBaseData {
     }
 
     public static List<Vote> getVotes() {
-        return new ArrayList<>(Arrays.asList(getVoteDominos(), getVoteMamamia(), getVoteAdriano()));
+        return new ArrayList<>(Arrays.asList(getVoteDominos(), getVoteBangalore(), getVoteAdriano()));
     }
 
 }

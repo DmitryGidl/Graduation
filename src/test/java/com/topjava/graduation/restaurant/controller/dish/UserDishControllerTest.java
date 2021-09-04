@@ -51,7 +51,7 @@ public class UserDishControllerTest {
         mockMvc.perform(mockRequest)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(4)))
-                .andExpect(jsonPath("$[1].name", is("Пицца маргарита")));
+                .andExpect(jsonPath("$[1].name", is("Pizza Margherita")));
     }
 
     @Test

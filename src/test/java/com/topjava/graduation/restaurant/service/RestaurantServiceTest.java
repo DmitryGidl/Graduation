@@ -38,7 +38,7 @@ public class RestaurantServiceTest {
 
         var resultRestaurant = restaurantService.create(getRestaurantCreationAdriano());
 
-        var expectedSavedRestaurant = new Restaurant(0, "Adriano's pizza", "Глибочицкая, 33/37",
+        var expectedSavedRestaurant = new Restaurant(0, "Adriano's pizza", "72 Mill Lane",
                 null, null);
         assertTrue(EqualsBuilder.reflectionEquals(getRestaurantResponseAdriano(), resultRestaurant));
         assertTrue(EqualsBuilder.reflectionEquals(expectedSavedRestaurant, restaurantCaptor.getValue()));
@@ -54,14 +54,14 @@ public class RestaurantServiceTest {
 
     @Test
     void update_restaurantExist_success() {
-        Mockito.when(restaurantRepository.findById(2)).thenReturn((Optional.of(getRestaurantMamamia())));
+        Mockito.when(restaurantRepository.findById(2)).thenReturn((Optional.of(getRestaurantBangalore())));
 
         var actualResponseRestaurant = restaurantService.update(2, getRestaurantCreationAdriano());
 
         var expectedResponseRestaurant = new RestaurantResponseDTO(2, "Adriano's pizza",
-                "Глибочицкая, 33/37", 1);
+                "72 Mill Lane", 1);
         assertEquals(expectedResponseRestaurant, actualResponseRestaurant);
-        var expectedSavedRestaurant = new Restaurant(2, "Adriano's pizza", "Глибочицкая, 33/37",
+        var expectedSavedRestaurant = new Restaurant(2, "Adriano's pizza", "72 Mill Lane",
                 null, null);
         Mockito.verify(restaurantRepository, times(1)).save(restaurantCaptor.capture());
         assertTrue(EqualsBuilder.reflectionEquals(expectedSavedRestaurant, restaurantCaptor.getValue(),
