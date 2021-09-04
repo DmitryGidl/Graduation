@@ -40,10 +40,6 @@ public class RestaurantApplication {
         return hibernate5Module;
     }
 
-    @Primary
-    BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 
 }
 
