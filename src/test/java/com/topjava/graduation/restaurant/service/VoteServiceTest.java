@@ -75,7 +75,7 @@ Mockito.when(voteRepository.save(voteCaptor.capture())).thenReturn(voteTosave);
 
 var actualVoteResponse = voteService.addVote(user,creationDominos);
 
-var expectedVoteResponse = new VoteResponseDTO(0, "BobUser", "Dominos Pizza",
+var expectedVoteResponse = new VoteResponseDTO(0, "User", "Dominos Pizza",
         "Басейна, 17", 1, todayDate);
 assertEquals(expectedVoteResponse, actualVoteResponse);
 assertTrue(reflectionEquals(voteTosave, voteCaptor.getValue()));
@@ -106,7 +106,7 @@ assertTrue(reflectionEquals(voteTosave, voteCaptor.getValue()));
 
         var actualResponseVote = voteServiceSpy.updateCurrentUserVote(user, voteCreationMamamia);
 
-        var expectedResponseVote = new VoteResponseDTO(2, "BobUser", "Mamamia",
+        var expectedResponseVote = new VoteResponseDTO(2, "User", "Mamamia",
                 "проспект Победы, 9Б", 2, todayDate);
         assertEquals(expectedResponseVote, actualResponseVote);
     }
@@ -217,7 +217,7 @@ assertTrue(reflectionEquals(voteTosave, voteCaptor.getValue()));
 
         var resultVoteResponse = voteService.update(3, getVoteCreationDominos());
 
-        var expectedVoteResponse = new VoteResponseDTO(3, "BobUser",
+        var expectedVoteResponse = new VoteResponseDTO(3, "User",
                 "Dominos Pizza", "Басейна, 17", 1, todayDate);
         assertEquals(expectedVoteResponse, resultVoteResponse);
         var expectedVoteSave = new Vote(3, getRestaurantDominos(), todayDate, getBasicUser());

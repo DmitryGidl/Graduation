@@ -9,8 +9,8 @@ import java.util.HashSet;
 
 public abstract class UserTestModels {
     // DummyUsers
-    public static final String USER_USERNAME = "BobUser";
-    public static final String ADMIN_USERNAME = "JohnAdmin";
+    public static final String USER_USERNAME = "User";
+    public static final String ADMIN_USERNAME = "Admin";
 
     public static User getBasicUser() {
         return new User(122, USER_USERNAME, "user@gmail.com", "password",

@@ -31,17 +31,17 @@ public abstract class VoteTestModel extends TestBaseData {
 
     // VoteResponseDTOs
     public static VoteResponseDTO getVoteResponseDominos() {
-        return new VoteResponseDTO(1, "BobUser", "Dominos Pizza",
+        return new VoteResponseDTO(1, "User", "Dominos Pizza",
                 "Басейна, 17", 1, todayDate);
     }
 
     public static VoteResponseDTO getVoteResponseMamamia() {
-        return new VoteResponseDTO(2, "BobUser", "Mamamia",
+        return new VoteResponseDTO(2, "User", "Mamamia",
                 "проспект Победы, 9Б", 2, todayDate);
     }
 
     public static VoteResponseDTO getVoteResponseAdriano() {
-        return new VoteResponseDTO(3, "BobUser", "Adriano's pizza",
+        return new VoteResponseDTO(3, "User", "Adriano's pizza",
                 "Глибочицкая, 33/37", 3, todayDate);
     }
 

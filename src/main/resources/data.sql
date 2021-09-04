@@ -28,8 +28,8 @@ VALUES (1, 'Сандерс Баскет', CURRENT_DATE, 80, 1),
        (21, 'Набор Лосось Микс', @YESTERDAY_DATE, 799, 3);
 
 INSERT INTO user(id, username, email, enabled, password)
-VALUES (1, 'Ryank', 'ryank@gmail.com', TRUE, '$2a$10$jyT.nlulmpax33v.yasBRu3bpBjRcbkj..bNckvXPV.l4GHLYr2.y'),
-       (2, 'Bear93', 'bear@yahoo.com', TRUE, '$2a$10$qDKk5bvBNu3PXIuQazS3kuGY0DoS9UjtGthEiINKOePK6RCV9b5OO'),
+VALUES (1, 'Admin', 'admin@gmail.com', TRUE, '$2a$10$jyT.nlulmpax33v.yasBRu3bpBjRcbkj..bNckvXPV.l4GHLYr2.y'),
+       (2, 'User', 'user@gmail.com', TRUE, '$2a$10$qDKk5bvBNu3PXIuQazS3kuGY0DoS9UjtGthEiINKOePK6RCV9b5OO'),
        (3, 'SomeUser', 'some@gmail.com', TRUE, '$2a$10$nY5eFFJm2mFT37lrVtU5tOpO9VEl64cSHD/L.lkDNoac14coooZZy');
 
 INSERT INTO user_roles(user_id, roles)
