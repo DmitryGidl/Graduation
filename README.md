@@ -72,4 +72,4 @@ curl -X GET "http://localhost:8080/vote/history" --user user@gmail.com:password
 #### Delete vote of currently logged user
 curl -X DELETE "http://localhost:8080/vote" --user user@gmail.com:password
 #### Get a vote from history
-curl -X GET "http://localhost:8080/vote/history/1" --user user@gmail.com:password
+curl -X GET "http://localhost:8080/vote/history/4" --user user@gmail.com:password
