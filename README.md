@@ -1,4 +1,4 @@
-# REST API using Hibernate/Spring/SpringMVC (or Spring-Boot) without frontend.
+# REST API using Hibernate/Spring-Boot
 
 #### The task is:
 
