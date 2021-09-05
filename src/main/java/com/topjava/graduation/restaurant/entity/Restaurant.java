@@ -22,7 +22,7 @@ public class Restaurant extends AbstractNamedEntity {
     @Length(min = 3, max = 100)
     String address;
 
-    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true) // LAZY TO BE DELETED
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<Dish> dishes;
 

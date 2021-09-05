@@ -25,7 +25,6 @@ public class AdminRestaurantController {
     @ResponseStatus(HttpStatus.CREATED)
     public RestaurantResponseDTO create(@RequestBody @Valid RestaurantCreationDTO restaurantCreationDTO,
                                         BindingResult bindingResult) {
-        System.out.println(bindingResult.hasErrors());
         throwExceptionIfBindingResultHasErrors(bindingResult);
         return restaurantService.create(restaurantCreationDTO);
     }

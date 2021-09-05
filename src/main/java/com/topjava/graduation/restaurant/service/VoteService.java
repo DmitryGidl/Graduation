@@ -43,7 +43,7 @@ public class VoteService {
     @Caching(
             evict = {
                     @CacheEvict(cacheNames = "restaurantDTOList", allEntries = true),
-                    @CacheEvict(cacheNames = "restaurantDTOs", allEntries = true)
+                    @CacheEvict(cacheNames = "restaurantDTOs", key = "#voteCreationDTO.restaurantId")
             })
     public VoteResponseDTO addVote(User user, VoteCreationDTO voteCreationDTO) {
         ifLateToVote();
@@ -60,7 +60,7 @@ public class VoteService {
     @Caching(
             evict = {
                     @CacheEvict(cacheNames = "restaurantDTOList", allEntries = true),
-                    @CacheEvict(cacheNames = "restaurantDTOs", allEntries = true)
+                    @CacheEvict(cacheNames = "restaurantDTOs", key = "#voteCreationDTO.restaurantId")
             })
     public VoteResponseDTO updateCurrentUserVote(User user, VoteCreationDTO voteCreationDTO) {
                 ifLateToVote();
