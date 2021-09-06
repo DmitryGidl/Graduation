@@ -1,5 +1,6 @@
 package com.topjava.graduation.restaurant.dto;
 
+import com.topjava.graduation.restaurant.validation.NoHtml;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
@@ -17,6 +18,7 @@ import java.time.LocalDate;
 @ToString
 public class DishCreationDTO {
 
+    @NoHtml
     @NotBlank
     @Length(min = 3, max = 100)
     private String name;

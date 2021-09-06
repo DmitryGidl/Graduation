@@ -1,5 +1,6 @@
 package com.topjava.graduation.restaurant.dto;
 
+import com.topjava.graduation.restaurant.validation.NoHtml;
 import lombok.*;
 
 import javax.validation.constraints.Digits;
