@@ -1,9 +1,9 @@
 package com.topjava.graduation.restaurant.service;
 
-import com.topjava.graduation.restaurant.repository.UserRepository;
 import com.topjava.graduation.restaurant.dto.UserDTO;
 import com.topjava.graduation.restaurant.entity.User;
 import com.topjava.graduation.restaurant.exception.UserAlreadyExistException;
+import com.topjava.graduation.restaurant.repository.UserRepository;
 import com.topjava.graduation.restaurant.security.AuthenticatedUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

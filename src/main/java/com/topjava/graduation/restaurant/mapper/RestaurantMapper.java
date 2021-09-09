@@ -26,6 +26,5 @@ public abstract class RestaurantMapper {
         var votes = restaurant.getVotes();
         if (votes == null) return 0;
         return  votes.stream().filter(vote -> vote.getVoteDate().equals(LocalDate.now())).count();
-
     }
 }

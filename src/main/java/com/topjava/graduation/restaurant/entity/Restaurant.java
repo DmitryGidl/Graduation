@@ -4,28 +4,36 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.Length;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.util.Collections;
 import java.util.List;
+
+import static com.topjava.graduation.restaurant.entity.Restaurant.GRAPH_RESTAURANT_WITH_VOTES;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
+@NamedEntityGraph(name = GRAPH_RESTAURANT_WITH_VOTES, attributeNodes =
+@NamedAttributeNode("votes"))
+
 public class Restaurant extends AbstractNamedEntity {
+    public static final String GRAPH_RESTAURANT_WITH_VOTES = "Restaurant with votes.Graph";
+
     @NotBlank
     @Length(min = 3, max = 100)
-    String address;
+    private String address;
 
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<Dish> dishes;
 
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<Vote> votes;

@@ -5,16 +5,20 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.time.LocalDate;
+
+import static com.topjava.graduation.restaurant.entity.Vote.GRAPH_VOTE_WITH_RESTAURANT;
 
 @Entity
 @Setter
 @Getter
 @NoArgsConstructor
+@NamedEntityGraph(name = GRAPH_VOTE_WITH_RESTAURANT, attributeNodes =
+@NamedAttributeNode("restaurant"))
 public class Vote extends AbstractBaseEntity {
+    public static final String GRAPH_VOTE_WITH_RESTAURANT = "Vote with restaurant.Graph";
+
     @ManyToOne
     @JsonBackReference
     private Restaurant restaurant;

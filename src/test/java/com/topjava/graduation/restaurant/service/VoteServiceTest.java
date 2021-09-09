@@ -197,13 +197,13 @@ assertTrue(reflectionEquals(voteTosave, voteCaptor.getValue()));
 
     @Test
     void deleteCurrentUserVote_votePresent_success() {
-        Mockito.when(voteRepository.deleteVoteByUserId(13)).thenReturn(1);
+        Mockito.when(voteRepository.deleteVoteByUserIdAndVoteDate(13, LocalDate.now(clock))).thenReturn(1);
         assertDoesNotThrow(() -> voteService.deleteCurrentUserVote(13));
     }
 
     @Test
     void deleteCurrentUserVote_voteAbsent_throwException() {
-        Mockito.when(voteRepository.deleteVoteByUserId(13)).thenReturn(0);
+        Mockito.when(voteRepository.deleteVoteByUserIdAndVoteDate(13,LocalDate.now(clock))).thenReturn(0);
         assertThrows(EntityNotFoundException.class, () -> voteService.deleteCurrentUserVote(13));
     }
 

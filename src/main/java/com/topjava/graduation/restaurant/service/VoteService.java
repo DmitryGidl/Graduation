@@ -57,16 +57,17 @@ public class VoteService {
                 .orElseGet(
                         () -> voteRepository.save(new Vote(user, restaurant))));
     }
+
     @Caching(
             evict = {
                     @CacheEvict(cacheNames = "restaurantDTOList", allEntries = true),
                     @CacheEvict(cacheNames = "restaurantDTOs", key = "#voteCreationDTO.restaurantId")
             })
     public VoteResponseDTO updateCurrentUserVote(User user, VoteCreationDTO voteCreationDTO) {
-                ifLateToVote();
+        ifLateToVote();
         int userId = user.getId();
         Vote oldVote = voteRepository.findByUserIdAndVoteDate(userId, LocalDate.now(clock))
-                .orElseThrow(() -> new EntityNotFoundException(userId + " has not Voted"));
+                .orElseThrow(() -> new EntityNotFoundException("User with id " + userId + " has not Voted"));
         return toVoteResponseDTO(updateLogic(oldVote, voteCreationDTO));
     }
 
@@ -118,9 +119,9 @@ public class VoteService {
 
     @Transactional
     public void deleteCurrentUserVote(int userId) {
-        int deleteInt = voteRepository.deleteVoteByUserId(userId);
+        int deleteInt = voteRepository.deleteVoteByUserIdAndVoteDate(userId, LocalDate.now(clock));
         if (deleteInt == 0) {
-            throw new EntityNotFoundException(userId + " has not voted");
+            throw new EntityNotFoundException("User with id " + userId + " has not voted");
         }
     }
 

@@ -6,9 +6,7 @@ import com.topjava.graduation.restaurant.entity.Dish;
 import com.topjava.graduation.restaurant.entity.Restaurant;
 import com.topjava.graduation.restaurant.entity.Vote;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 import static com.topjava.graduation.restaurant.test_data.DishTestModel.*;
 import static com.topjava.graduation.restaurant.test_data.UserTestModels.getAdminUser;
