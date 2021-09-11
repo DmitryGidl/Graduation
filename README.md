@@ -14,62 +14,61 @@ If it is before 11:00 we assume that he changed his mind.
 If it is after 11:00 then it is too late, vote can't be changed
 Each restaurant provides a new menu each day.
 
-## Curl Examples ( Swagger is included in project )
+### Swagger is included in project
+Swagger URL http://localhost:8080/swagger-ui/
+
+## Curl Examples
 ### Admin endpoints
 #### Create restaurant
-curl -X POST "http://localhost:8080/admin/restaurant" --user admin@gmail.com:password -H "Content-Type: application/json" -d "{ \\"address\\": \\"someAddress\\", \\"name\\": \\"Olympics Caffee\\"}"
+curl -X POST "http://localhost:8080/admin/restaurants" --user admin@gmail.com:password -H "Content-Type: application/json" -d "{ \\"address\\": \\"someAddress\\", \\"name\\": \\"Olympics Caffee\\"}"
 
 #### Update restaurant
-curl -X PUT "http://localhost:8080/admin/restaurant/2" --user admin@gmail.com:password -H "Content-Type: application/json" -d "{ \\"address\\": \\"Charlotte Road\\", \\"name\\": \\"SHOREDITCH\\"}"
+curl -X PUT "http://localhost:8080/admin/restaurants/2" --user admin@gmail.com:password -H "Content-Type: application/json" -d "{ \\"address\\": \\"Charlotte Road\\", \\"name\\": \\"SHOREDITCH\\"}"
 #### Delete restaurant
-curl -X DELETE "http://localhost:8080/admin/restaurant/2" --user admin@gmail.com:password
+curl -X DELETE "http://localhost:8080/admin/restaurants/2" --user admin@gmail.com:password
 
 #### Create dish
-curl -X POST "http://localhost:8080/admin/dish" --user admin@gmail.com:password -H "Content-Type: application/json" -d "{ \\"dateAdded\\": \\"2021-09-04\\", \\"name\\": \\"12 Piece Chicken\\", \\"price\\": \\"12\\", \\"restaurantId\\": 1}"
+curl -X POST "http://localhost:8080/admin/dishes" --user admin@gmail.com:password -H "Content-Type: application/json" -d "{ \\"dateAdded\\": \\"2021-09-04\\", \\"name\\": \\"12 Piece Chicken\\", \\"price\\": \\"12\\", \\"restaurantId\\": 1}"
 #### Update dish
-curl -X PUT "http://localhost:8080/admin/dish/3" --user admin@gmail.com:password -H "Content-Type: application/json" -d "{ \\"dateAdded\\": \\"2021-09-04\\", \\"name\\": \\"2 pc. Breast and Wing Combo\\", \\"price\\": 23, \\"restaurantId\\": 1}"
+curl -X PUT "http://localhost:8080/admin/dishes/3" --user admin@gmail.com:password -H "Content-Type: application/json" -d "{ \\"dateAdded\\": \\"2021-09-04\\", \\"name\\": \\"2 pc. Breast and Wing Combo\\", \\"price\\": 23, \\"restaurantId\\": 1}"
 #### Delete dish
-curl -X DELETE "http://localhost:8080/admin/dish/6" --user admin@gmail.com:password
+curl -X DELETE "http://localhost:8080/admin/dishes/6" --user admin@gmail.com:password
 #### Get all Votes today
-curl -X GET "http://localhost:8080/admin/vote" --user admin@gmail.com:password
+curl -X GET "http://localhost:8080/admin/votes" --user admin@gmail.com:password
 #### Get any vote by Id
-curl -X GET "http://localhost:8080/admin/vote/2" --user admin@gmail.com:password"
+curl -X GET "http://localhost:8080/admin/votes/2" --user admin@gmail.com:password"
 #### Get vote history
-curl -X GET "http://localhost:8080/admin/vote/history" --user admin@gmail.com:password
+curl -X GET "http://localhost:8080/admin/votes/history" --user admin@gmail.com:password
 #### Get vote history of one User
-curl -X GET "http://localhost:8080/admin/vote/history/user/3" --user admin@gmail.com:password
+curl -X GET "http://localhost:8080/admin/votes/history/user/3" --user admin@gmail.com:password
 #### Update any vote
-curl -X PUT "http://localhost:8080/admin/vote/2" --user admin@gmail.com:password -H "Content-Type: application/json" -d "{ \\"restaurantId\\": 3}"
+curl -X PUT "http://localhost:8080/admin/votes/2" --user admin@gmail.com:password -H "Content-Type: application/json" -d "{ \\"restaurantId\\": 3}"
 #### Delete any vote
-curl -X DELETE "http://localhost:8080/admin/vote/2" --user admin@gmail.com:password
-
-### Shared endpoints
-#### Register new user
-curl -X POST "http://localhost:8080/user/registration" --user user@gmail.com:password -H "Content-Type: application/json" -d "{ \\"email\\": \\"randomemail@gmail.com\\", \\"password\\": \\"somestrongpassword\\", \\"username\\": \\"randomusername\\"}"
+curl -X DELETE "http://localhost:8080/admin/votes/2" --user admin@gmail.com:password
 
 #### Get all dishes today
-curl -X GET "http://localhost:8080/dish" --user user@gmail.com:password
+curl -X GET "http://localhost:8080/dishes" --user user@gmail.com:password
 #### Get one dish
-curl -X GET "http://localhost:8080/dish/2" --user user@gmail.com:password
+curl -X GET "http://localhost:8080/dishes/2" --user user@gmail.com:password
 #### Get dish history
-curl -X GET "http://localhost:8080/dish/history" --user user@gmail.com:password"
+curl -X GET "http://localhost:8080/dishes/history" --user user@gmail.com:password"
 #### Get dish history by restaurant
-curl -X GET "http://localhost:8080/dish/history/1" --user user@gmail.com:password
+curl -X GET "http://localhost:8080/dishes/history/1" --user user@gmail.com:password
 
 #### Get all restaurants
-curl -X GET "http://localhost:8080/restaurant" --user user@gmail.com:password
+curl -X GET "http://localhost:8080/restaurants" --user user@gmail.com:password
 #### Get one restaurant
-curl -X GET "http://localhost:8080/restaurant/3" --user user@gmail.com:password"
+curl -X GET "http://localhost:8080/restaurants/3" --user user@gmail.com:password"
 
 #### Get vote of currently logged user
-curl -X GET "http://localhost:8080/vote" --user user@gmail.com:password
+curl -X GET "http://localhost:8080/votes" --user user@gmail.com:password
 #### Create Vote ( or Update if user has already voted today )
-curl -X POST "http://localhost:8080/vote" --user user@gmail.com:password -H "Content-Type: application/json" -d "{ \\"restaurantId\\": 1}"
+curl -X POST "http://localhost:8080/votes" --user user@gmail.com:password -H "Content-Type: application/json" -d "{ \\"restaurantId\\": 1}"
 #### Update vote of currently logged user
-curl -X PUT "http://localhost:8080/vote" --user user@gmail.com:password -H "Content-Type: application/json" -d "{ \\"restaurantId\\": 3}"
+curl -X PUT "http://localhost:8080/votes" --user user@gmail.com:password -H "Content-Type: application/json" -d "{ \\"restaurantId\\": 3}"
 #### Get vote history of currently logged user
-curl -X GET "http://localhost:8080/vote/history" --user user@gmail.com:password
+curl -X GET "http://localhost:8080/votes/history" --user user@gmail.com:password
 #### Delete vote of currently logged user
-curl -X DELETE "http://localhost:8080/vote" --user user@gmail.com:password
+curl -X DELETE "http://localhost:8080/votes" --user user@gmail.com:password
 #### Get vote from logged user history
-curl -X GET "http://localhost:8080/vote/history/4" --user user@gmail.com:password
+curl -X GET "http://localhost:8080/votes/history/4" --user user@gmail.com:password

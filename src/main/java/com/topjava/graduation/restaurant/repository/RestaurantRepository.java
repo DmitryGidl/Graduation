@@ -11,8 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-import static com.topjava.graduation.restaurant.entity.Restaurant.GRAPH_RESTAURANT_WITH_VOTES;
-
 @Repository
 @Transactional(readOnly = true)
 public interface RestaurantRepository extends JpaRepository<Restaurant, Integer> {
@@ -22,13 +20,10 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Integer>
     @Query("DELETE FROM Restaurant r WHERE r.id=?1")
     int deleteRestaurantById(int id);
 
-    @EntityGraph(GRAPH_RESTAURANT_WITH_VOTES)
     Optional<Restaurant> findByNameAndAddress(String name, String address);
 
-    @EntityGraph(GRAPH_RESTAURANT_WITH_VOTES)
     List<Restaurant> findAll();
 
     @Override
-    @EntityGraph(GRAPH_RESTAURANT_WITH_VOTES)
     Optional<Restaurant> findById(Integer integer);
 }

@@ -12,17 +12,11 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.List;
 
-import static com.topjava.graduation.restaurant.entity.Restaurant.GRAPH_RESTAURANT_WITH_VOTES;
-
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-@NamedEntityGraph(name = GRAPH_RESTAURANT_WITH_VOTES, attributeNodes =
-@NamedAttributeNode("votes"))
-
 public class Restaurant extends AbstractNamedEntity {
-    public static final String GRAPH_RESTAURANT_WITH_VOTES = "Restaurant with votes.Graph";
 
     @NotBlank
     @Length(min = 3, max = 100)

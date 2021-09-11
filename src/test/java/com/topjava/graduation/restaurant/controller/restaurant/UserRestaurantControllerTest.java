@@ -45,7 +45,7 @@ class UserRestaurantControllerTest {
 
         Mockito.when(restaurantService.getAll()).thenReturn(restaurantResponseList);
 
-        var mockRequest = get("/restaurant");
+        var mockRequest = get("/restaurants");
 
         mockMvc.perform(mockRequest)
                 .andExpect(status().isOk())
@@ -58,7 +58,7 @@ class UserRestaurantControllerTest {
 
         Mockito.when(restaurantService.getById(1)).thenReturn(getRestaurantResponseDominos());
 
-        var mockRequest = get("/restaurant/1");
+        var mockRequest = get("/restaurants/1");
 
         mockMvc.perform(mockRequest)
                 .andExpect(status().isOk())

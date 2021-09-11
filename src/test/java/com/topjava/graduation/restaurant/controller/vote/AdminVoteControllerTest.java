@@ -44,7 +44,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
     @Test
     void getAllVotesToday() throws Exception {
         Mockito.when(voteService.getAllToday()).thenReturn(getResponseVotes());
-        var mockRequest = get("/admin/vote");
+        var mockRequest = get("/admin/votes");
 
         mockMvc.perform(mockRequest)
                 .andExpect(status().isOk())
@@ -56,7 +56,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
     void getAnyVote() throws Exception {
         Mockito.when(voteService.getByid(52)).thenReturn(getVoteResponseDominos());
 
-        var mockRequest = get("/admin/vote/52");
+        var mockRequest = get("/admin/votes/52");
 
         mockMvc.perform(mockRequest)
                 .andExpect(status().isOk())
@@ -69,7 +69,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         var voteCreationBangalore = getVoteCreationBangalore();
         Mockito.when(voteService.update(5, voteCreationBangalore)).thenReturn(getVoteResponseBangalore());
 
-        var mockRequest = put("/admin/vote/5")
+        var mockRequest = put("/admin/votes/5")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(voteCreationBangalore));
 
@@ -80,7 +80,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
     @Test
     void deleteAnyVote() throws Exception {
-        mockMvc.perform(delete("/admin/vote/23"));
+        mockMvc.perform(delete("/admin/votes/23"));
 
         Mockito.verify(voteService, times(1)).deleteById(23);
 
@@ -90,7 +90,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
     void getVoteHistory() throws Exception {
         Mockito.when(voteService.getAllHistory()).thenReturn(getResponseVotes());
 
-        var mockRequest = get("/admin/vote/history");
+        var mockRequest = get("/admin/votes/history");
 
         mockMvc.perform(mockRequest)
                 .andExpect(status().isOk())
@@ -104,7 +104,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
         Mockito.when(voteService.getUserVoteHistory(15)).thenReturn(getResponseVotes());
 
-        var mockRequest = get("/admin/vote/history/user/15");
+        var mockRequest = get("/admin/votes/history/users/15");
 
         mockMvc.perform(mockRequest)
                 .andExpect(status().isOk())

@@ -48,7 +48,7 @@ class AdminDishControllerTest {
         when(dishService.createDish(dishDeepFried)).thenReturn(getDishResponseDeepfried());
 
         var mockRequest =
-                post("/admin/dish/")
+                post("/admin/dishes/")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(this.objectMapper.writeValueAsString(dishDeepFried));
 
@@ -63,7 +63,7 @@ class AdminDishControllerTest {
         when(dishService.update(3, dishCreationMargarita)).thenReturn(dishResponseMargarita);
 
         var mockRequest =
-                put("/admin/dish/3")
+                put("/admin/dishes/3")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(this.objectMapper.writeValueAsString(dishCreationMargarita));
 
@@ -74,7 +74,7 @@ class AdminDishControllerTest {
 
     @Test
     void deleteDish() throws Exception {
-        mockMvc.perform(delete("/admin/dish/5"));
+        mockMvc.perform(delete("/admin/dishes/5"));
 
         Mockito.verify(dishService, times(1))
                 .delete(5);

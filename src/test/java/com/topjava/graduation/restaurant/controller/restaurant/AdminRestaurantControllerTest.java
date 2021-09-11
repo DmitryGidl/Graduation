@@ -48,7 +48,7 @@ public class AdminRestaurantControllerTest {
         when(restaurantService.create(restaurantCreationDominos)).thenReturn(getRestaurantResponseDominos());
 
         var mockRequest = post(
-                "/admin/restaurant/")
+                "/admin/restaurants/")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(this.objectMapper.writeValueAsString(restaurantCreationDominos));
 
@@ -60,7 +60,7 @@ public class AdminRestaurantControllerTest {
     void updateRestaurant() throws Exception {
         var restaurantCreationAdriano = getRestaurantCreationAdriano();
 
-        mockMvc.perform(put("/admin/restaurant/2")
+        mockMvc.perform(put("/admin/restaurants/2")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(this.objectMapper.writeValueAsString(restaurantCreationAdriano)));
 
@@ -70,7 +70,7 @@ public class AdminRestaurantControllerTest {
 
     @Test
     void deleteRestaurant() throws Exception {
-        mockMvc.perform(delete("/admin/restaurant/3"));
+        mockMvc.perform(delete("/admin/restaurants/3"));
 
         Mockito.verify(restaurantService, times(1)).deleteById(3);
     }

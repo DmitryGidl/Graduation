@@ -46,7 +46,7 @@ public class UserDishControllerTest {
 
         Mockito.when(dishService.getAllToday()).thenReturn(dishResponseList);
 
-        var mockRequest = get("/dish");
+        var mockRequest = get("/dishes");
 
         mockMvc.perform(mockRequest)
                 .andExpect(status().isOk())
@@ -60,7 +60,7 @@ public class UserDishControllerTest {
 
         Mockito.when(dishService.getAll()).thenReturn(dishResponseList);
 
-        var mockRequest = get("/dish/history");
+        var mockRequest = get("/dishes/history");
         mockMvc.perform(mockRequest)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(4)))
@@ -73,7 +73,7 @@ public class UserDishControllerTest {
 
         Mockito.when(dishService.getDishHistoryByRestaurant(4)).thenReturn(dishResponseList);
 
-        var mockRequest = get("/dish/history/4");
+        var mockRequest = get("/dishes/history/4");
 
         mockMvc.perform(mockRequest)
                 .andExpect(status().isOk())

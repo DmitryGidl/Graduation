@@ -7,6 +7,7 @@ import com.topjava.graduation.restaurant.exception.EntityAlreadyExistException;
 import com.topjava.graduation.restaurant.exception.EntityNotFoundException;
 import com.topjava.graduation.restaurant.mapper.RestaurantMapper;
 import com.topjava.graduation.restaurant.repository.RestaurantRepository;
+import com.topjava.graduation.restaurant.repository.VoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
@@ -25,10 +26,12 @@ import static com.topjava.graduation.restaurant.mapper.RestaurantMapper.toRestau
 public class RestaurantService {
 
     RestaurantRepository restaurantRepository;
+    VoteRepository voteRepository;
 
     @Autowired
-    public RestaurantService(RestaurantRepository restaurantRepository) {
+    public RestaurantService(RestaurantRepository restaurantRepository, VoteRepository voteRepository) {
         this.restaurantRepository = restaurantRepository;
+        this.voteRepository = voteRepository;
     }
 
     @CachePut(value = "restaurantDTOs", key = "#result.id")
@@ -42,7 +45,8 @@ public class RestaurantService {
         }
 
         var restaurant = toRestaurant(restaurantCreationDTO);
-        return toRestaurantDto(restaurantRepository.save(restaurant));
+       var savedRestaurant = restaurantRepository.save(restaurant);
+       return toRestaurantDto(savedRestaurant, 0);
     }
 
     @CachePut(value = "restaurantDTOs", key = "#restaurantId")
@@ -55,7 +59,8 @@ public class RestaurantService {
         oldRestaurant.setAddress(restaurantCreationDTO.getAddress());
         restaurantRepository.save(oldRestaurant);
 
-        return toRestaurantDto(oldRestaurant);
+        int voteCount = voteRepository.getVoteCountByRestaurantId(restaurantId);
+        return toRestaurantDto(oldRestaurant, voteCount);
     }
 
     @Cacheable(value = "restaurantDTOs", key = "#restaurantId")
@@ -65,16 +70,22 @@ public class RestaurantService {
                         restaurantErrorMessage(restaurantId)
                 ));
 
-        return toRestaurantDto(restaurant);
+        var voteCount = voteRepository.getVoteCountByRestaurantId(restaurantId);
+        return toRestaurantDto(restaurant, voteCount);
     }
 
     @Cacheable(value = "restaurantDTOList", key = "-1")
     public List<RestaurantResponseDTO> getAll() {
         List<Restaurant> restaurantList = restaurantRepository.findAll();
         return restaurantList.stream()
-                .map(RestaurantMapper::toRestaurantDto)
+                .map((restaurant) -> {
+                    int vouteCount = voteRepository.getVoteCountByRestaurantId(restaurant.getId());
+                   return RestaurantMapper.toRestaurantDto(restaurant, vouteCount);
+                        }
+                )
                 .collect(Collectors.toList());
     }
+
 
     @Caching(
             evict = {

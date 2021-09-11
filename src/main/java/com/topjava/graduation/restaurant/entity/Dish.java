@@ -11,7 +11,6 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 import static com.topjava.graduation.restaurant.entity.Dish.GRAPH_DISH_WITH_RESTAURANT;
-import static com.topjava.graduation.restaurant.entity.Restaurant.GRAPH_RESTAURANT_WITH_VOTES;
 
 
 @Entity

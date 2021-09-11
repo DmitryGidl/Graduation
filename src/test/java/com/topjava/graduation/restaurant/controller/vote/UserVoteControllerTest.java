@@ -44,7 +44,7 @@ public class UserVoteControllerTest {
         Mockito.when(voteService.addVote(getBasicUser(), voteCreationAdriano)).thenReturn(getVoteResponseAdriano());
 
         var mockRequest = post(
-                "/vote")
+                "/votes")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(voteCreationAdriano));
 
@@ -55,7 +55,7 @@ public class UserVoteControllerTest {
     @Test
     void deleteCurrentUserVote() throws Exception {
 
-        mockMvc.perform(delete("/vote"));
+        mockMvc.perform(delete("/votes"));
 
         Mockito.verify(voteService, times(1))
                 .deleteCurrentUserVote(122);
@@ -65,7 +65,7 @@ public class UserVoteControllerTest {
     void getAllCurrentUserVoteHistory() throws Exception {
         Mockito.when(voteService.getUserVoteHistory(122)).thenReturn(getResponseVotes());
 
-        var mockRequest = get("/vote/history");
+        var mockRequest = get("/votes/history");
 
         mockMvc.perform(mockRequest)
                 .andExpect(status().isOk())
@@ -77,7 +77,7 @@ public class UserVoteControllerTest {
     void getOneCurrentUserVote() throws Exception {
         Mockito.when(voteService.getOneVoteCurrentUser(122, 5)).thenReturn(getVoteResponseAdriano());
 
-        var mockRequest = get("/vote/history/5");
+        var mockRequest = get("/votes/history/5");
 
         mockMvc.perform(mockRequest)
                 .andExpect(status().isOk())

@@ -46,7 +46,7 @@ public class VoteService {
                     @CacheEvict(cacheNames = "restaurantDTOs", key = "#voteCreationDTO.restaurantId")
             })
     public VoteResponseDTO addVote(User user, VoteCreationDTO voteCreationDTO) {
-        ifLateToVote();
+        throwExceptionIfLateToChangeVote();
         int restaurantId = voteCreationDTO.getRestaurantId();
         var restaurant = restaurantRepository.findById(restaurantId)
                 .orElseThrow(() -> new EntityNotFoundException(
@@ -64,7 +64,7 @@ public class VoteService {
                     @CacheEvict(cacheNames = "restaurantDTOs", key = "#voteCreationDTO.restaurantId")
             })
     public VoteResponseDTO updateCurrentUserVote(User user, VoteCreationDTO voteCreationDTO) {
-        ifLateToVote();
+        throwExceptionIfLateToChangeVote();
         int userId = user.getId();
         Vote oldVote = voteRepository.findByUserIdAndVoteDate(userId, LocalDate.now(clock))
                 .orElseThrow(() -> new EntityNotFoundException("User with id " + userId + " has not Voted"));
@@ -117,16 +117,8 @@ public class VoteService {
         }
     }
 
-    @Transactional
-    public void deleteCurrentUserVote(int userId) {
-        int deleteInt = voteRepository.deleteVoteByUserIdAndVoteDate(userId, LocalDate.now(clock));
-        if (deleteInt == 0) {
-            throw new EntityNotFoundException("User with id " + userId + " has not voted");
-        }
-    }
-
     public VoteResponseDTO update(int voteId, VoteCreationDTO voteCreationDTO) {
-        ifLateToVote();
+        throwExceptionIfLateToChangeVote();
         var oldVote = voteRepository.findById(voteId).orElseThrow(() ->
                 new EntityNotFoundException(voteErrorMessage(voteId)));
         int newRestaurantId = voteCreationDTO.getRestaurantId();
@@ -149,7 +141,13 @@ public class VoteService {
         return toVoteResponseDTO(vote);
     }
 
-    public void ifLateToVote() {
+    public void deleteCurrentUserVote(int id) {
+        throwExceptionIfLateToChangeVote();
+        int deleteResult = voteRepository.deleteVoteByUserIdAndVoteDate(id, LocalDate.now(clock));
+        if (deleteResult == 0) throw new EntityNotFoundException(voteErrorMessage(id));
+    }
+
+    public void throwExceptionIfLateToChangeVote() {
         var localTime = LocalTime.now(clock);
         if (!localTime.isBefore(getVoteFinishTime())) {
             throw new LateToVoteException("Vote can not be changed after 11 a.m. " +
@@ -164,5 +162,6 @@ public class VoteService {
     public static String voteHistoryErrorMessage(int voteId) {
         return "Vote with id " + voteId + " does not exist in vote history of this User";
     }
+
 
 }

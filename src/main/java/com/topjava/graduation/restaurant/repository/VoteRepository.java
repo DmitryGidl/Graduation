@@ -56,6 +56,9 @@ public interface VoteRepository extends JpaRepository<Vote, Integer> {
     @Transactional
     @Query("DELETE FROM  Vote v WHERE v.user.id =?1 AND v.voteDate=?2")
     Integer deleteVoteByUserIdAndVoteDate(int userId, LocalDate voteDate);
+
+    @Query("SELECT COUNT(v.id) FROM Vote v JOIN v.restaurant r WHERE r.id=?1")
+    Integer getVoteCountByRestaurantId(int id);
 }
 
 

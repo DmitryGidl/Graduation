@@ -3,9 +3,7 @@ package com.topjava.graduation.restaurant.security;
 import com.topjava.graduation.restaurant.entity.User;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.Transient;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;

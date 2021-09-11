@@ -14,7 +14,7 @@ import java.util.List;
 import static com.topjava.graduation.restaurant.util.ExceptionUtil.throwExceptionIfBindingResultHasErrors;
 
 @RestController
-@RequestMapping("/admin/vote")
+@RequestMapping("/admin/votes")
 public class AdminVoteController {
     VoteService voteService;
 
@@ -51,7 +51,7 @@ public class AdminVoteController {
         return voteService.getAllHistory();
     }
 
-    @GetMapping("/history/user/{id}")
+    @GetMapping("/history/users/{id}")
     public List<VoteResponseDTO> getUserVoteHistory(@PathVariable int id) {
         return voteService.getUserVoteHistory(id);
     }

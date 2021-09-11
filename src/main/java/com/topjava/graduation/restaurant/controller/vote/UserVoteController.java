@@ -16,7 +16,7 @@ import java.util.List;
 import static com.topjava.graduation.restaurant.util.ExceptionUtil.throwExceptionIfBindingResultHasErrors;
 
 @RestController
-@RequestMapping("/vote")
+@RequestMapping("/votes")
 public class UserVoteController {
     VoteService voteService;
 

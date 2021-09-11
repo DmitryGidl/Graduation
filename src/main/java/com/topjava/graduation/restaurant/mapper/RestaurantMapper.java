@@ -13,18 +13,13 @@ public abstract class RestaurantMapper {
     private RestaurantMapper() {
     }
 
-    public static RestaurantResponseDTO toRestaurantDto(Restaurant restaurant) {
+    public static RestaurantResponseDTO toRestaurantDto(Restaurant restaurant, int voteCount) {
 
         return new RestaurantResponseDTO(restaurant.getId(), restaurant.getName(),
-                restaurant.getAddress(), getRestaurantVoteCount(restaurant));
+                restaurant.getAddress(), voteCount);
     }
 
     public static Restaurant toRestaurant(RestaurantCreationDTO restaurantCreationDTO) {
         return new Restaurant(restaurantCreationDTO.getName(), restaurantCreationDTO.getAddress());
-    }
-    public static long getRestaurantVoteCount(Restaurant restaurant) {
-        var votes = restaurant.getVotes();
-        if (votes == null) return 0;
-        return  votes.stream().filter(vote -> vote.getVoteDate().equals(LocalDate.now())).count();
     }
 }

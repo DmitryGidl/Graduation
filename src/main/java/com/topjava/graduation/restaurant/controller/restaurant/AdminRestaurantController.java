@@ -12,7 +12,7 @@ import javax.validation.Valid;
 import static com.topjava.graduation.restaurant.util.ExceptionUtil.throwExceptionIfBindingResultHasErrors;
 
 @RestController
-@RequestMapping("/admin/restaurant")
+@RequestMapping("/admin/restaurants")
 
 public class AdminRestaurantController {
     private RestaurantService restaurantService;

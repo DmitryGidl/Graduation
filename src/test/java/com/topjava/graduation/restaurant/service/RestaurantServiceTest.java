@@ -5,6 +5,7 @@ import com.topjava.graduation.restaurant.entity.Restaurant;
 import com.topjava.graduation.restaurant.exception.EntityAlreadyExistException;
 import com.topjava.graduation.restaurant.exception.EntityNotFoundException;
 import com.topjava.graduation.restaurant.repository.RestaurantRepository;
+import com.topjava.graduation.restaurant.repository.VoteRepository;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,6 +25,8 @@ public class RestaurantServiceTest {
 
     @Mock
     RestaurantRepository restaurantRepository;
+    @Mock
+    VoteRepository voteRepository;
 
     @InjectMocks
     RestaurantService restaurantService;
@@ -35,6 +38,7 @@ public class RestaurantServiceTest {
     void create_restaurantAbsent_success() {
 
         Mockito.when(restaurantRepository.save(restaurantCaptor.capture())).thenReturn(getRestaurantAdriano());
+
 
         var resultRestaurant = restaurantService.create(getRestaurantCreationAdriano());
 
@@ -55,6 +59,7 @@ public class RestaurantServiceTest {
     @Test
     void update_restaurantExist_success() {
         Mockito.when(restaurantRepository.findById(2)).thenReturn((Optional.of(getRestaurantBangalore())));
+        Mockito.when(voteRepository.getVoteCountByRestaurantId(2)).thenReturn(1);
 
         var actualResponseRestaurant = restaurantService.update(2, getRestaurantCreationAdriano());
 
@@ -67,22 +72,12 @@ public class RestaurantServiceTest {
         assertTrue(EqualsBuilder.reflectionEquals(expectedSavedRestaurant, restaurantCaptor.getValue(),
                 "votes", "dishes"));
     }
-    //   @CachePut(value = "restaurantDTOs", key = "#restaurantId")
-    //    public RestaurantResponseDTO update(int restaurantId, RestaurantCreationDTO restaurantCreationDTO) {
-    //        var oldRestaurant = restaurantRepository.findById(restaurantId)
-    //                .orElseThrow(() -> new EntityNotFoundException(
-    //                        restaurantErrorMessage(restaurantId)));
-    //
-    //        oldRestaurant.setName(restaurantCreationDTO.getName());
-    //        oldRestaurant.setAddress(restaurantCreationDTO.getAddress());
-    //        restaurantRepository.save(oldRestaurant);
-    //
-    //        return toRestaurantDto(oldRestaurant);
-    //    }
 
     @Test
     void getById_restaurantExist_success() {
         Mockito.when(restaurantRepository.findById(15)).thenReturn((Optional.of(getRestaurantDominos())));
+        Mockito.when(voteRepository.getVoteCountByRestaurantId(15)).thenReturn(1);
+
 
         RestaurantResponseDTO resultResponse = restaurantService.getById(15);
         var expectedRestaurantResponse = getRestaurantResponseDominos();
@@ -98,6 +93,8 @@ public class RestaurantServiceTest {
     @Test
     void getAll_returnList() {
         Mockito.when(restaurantRepository.findAll()).thenReturn(getRestaurants());
+        Mockito.when(voteRepository.getVoteCountByRestaurantId(1)).thenReturn(1);
+        Mockito.when(voteRepository.getVoteCountByRestaurantId(2)).thenReturn(1);
 
         List<RestaurantResponseDTO> actualResponseList = restaurantService.getAll();
         var expectedResponseList = getResponseRestaurants();
